@@ -609,7 +609,13 @@ export default function Home() {
       <p>¿Tenés alguna consulta?</p>
       <div className="flex justify-center ">
         <div>
-          <Button size="lg" onClick={() => push("https://wa.link/6nvgae")}>
+          <Button
+            size="lg"
+            onClick={() => {
+              push("https://wa.link/6nvgae");
+              trackEvent("InitiateCheckout", { value: 29.99, currency: "USD" });
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={20}
