@@ -22,30 +22,30 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const trackEvent = useFacebookPixel();
-  const [isFromArgentina, setIsFromArgentina] = useState(false);
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-          );
-          const data = await response.json();
-          const country = data.address.country_code.toUpperCase();
-          setIsFromArgentina(country === "AR");
+  // const [isFromArgentina, setIsFromArgentina] = useState(false);
+  // useEffect(() => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       async (position) => {
+  //         const { latitude, longitude } = position.coords;
+  //         const response = await fetch(
+  //           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+  //         );
+  //         const data = await response.json();
+  //         const country = data.address.country_code.toUpperCase();
+  //         setIsFromArgentina(country === "AR");
 
-        },
-        (error) => {
-          console.error("Error fetching geolocation:", error);
-          setIsFromArgentina(false); // Default fallback
-        }
-      );
-    } else {
-      console.error("Geolocation not supported");
-      setIsFromArgentina(false); // Default fallback
-    }
-  }, []);
+  //       },
+  //       (error) => {
+  //         console.error("Error fetching geolocation:", error);
+  //         setIsFromArgentina(false); // Default fallback
+  //       }
+  //     );
+  //   } else {
+  //     console.error("Geolocation not supported");
+  //     setIsFromArgentina(false); // Default fallback
+  //   }
+  // }, []);
 
   const { push } = useRouter();
 
@@ -84,9 +84,10 @@ export default function Home() {
 
   const handleClick = () => {
     trackEvent("InitiateCheckout", { value: 29.99, currency: "USD" });
-    isFromArgentina
-      ? push("https://mpago.la/2DrXPBZ")
-      : push("https://go.hotmart.com/Y94718196F?ap=9d29");
+    // isFromArgentina
+    //   ? push("https://mpago.la/2DrXPBZ")
+      // :
+       push("https://go.hotmart.com/Y94718196F?ap=9d29");
   };
 
   return (
