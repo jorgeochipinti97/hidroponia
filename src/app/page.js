@@ -96,6 +96,7 @@ export default function Home() {
               src="/presentacion.mp4"
               className="w-10/12 md:w-8/12 rounded-xl"
               controls
+              playsInline
             />
           </div>
         </div>
