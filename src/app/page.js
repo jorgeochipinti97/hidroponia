@@ -6,6 +6,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import useFacebookPixel from "@/hooks/usePixelFacebook";
+
 import {
   ChartSpline,
   Droplet,
@@ -16,8 +18,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  const trackEvent = useFacebookPixel();
+
   const { push } = useRouter();
 
   const featured = [
@@ -54,6 +59,7 @@ export default function Home() {
   ];
 
   const handleClick = () => {
+    trackEvent("InitiateCheckout", { value: 29.99, currency: "USD" });
     push("https://go.hotmart.com/Y94718196F?ap=9d29");
   };
 
@@ -67,7 +73,7 @@ export default function Home() {
               Único pago, Acceso inmediato y SIN mensualidades hasta el 5/8
             </span>
           </div>
-          <Button onClick={handleClick} className='mr-5'>
+          <Button onClick={handleClick} className="mr-5">
             <Leaf className="mr-2" /> Ser parte
           </Button>
         </div>
