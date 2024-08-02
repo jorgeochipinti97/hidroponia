@@ -461,8 +461,8 @@ export default function Home() {
                 <li>Grupos de Huertos Caseros</li>
                 <li>Grupos de Forraje Verde Hidropónico</li>
               </ul>
-              <p className="text-green-600 font-bold mt-4">Valor = ($25)</p>
-              <p className="text-red-600 font-bold">HOY = GRATIS</p>
+              <p className="text-gray-600 font-bold mt-4">Valor = $25 USD</p>
+              <p className="text-green-600 font-bold">HOY = GRATIS</p>
             </div>
 
             <div className="bg-white shadow-md rounded-lg p-6">
@@ -484,8 +484,8 @@ export default function Home() {
                   Los Ebooks más importantes para reforzar tus conocimientos
                 </li>
               </ul>
-              <p className="text-green-600 font-bold mt-4">Valor = ($25)</p>
-              <p className="text-red-600 font-bold">HOY = GRATIS</p>
+              <p className="text-gray-600 font-bold mt-4">Valor = $25 USD</p>
+              <p className="text-green-600 font-bold">HOY = GRATIS</p>
             </div>
 
             <div className="bg-white shadow-md rounded-lg p-6">
@@ -507,8 +507,8 @@ export default function Home() {
                   Se más preciso a la hora de aplicar tus soluciones nutritivas
                 </li>
               </ul>
-              <p className="text-green-600 font-bold mt-4">Valor = ($25)</p>
-              <p className="text-red-600 font-bold">HOY = GRATIS</p>
+              <p className="text-gray-600 font-bold mt-4">Valor = $25 USD</p>
+              <p className="text-green-600 font-bold">HOY = GRATIS</p>
             </div>
 
             <div className="bg-white shadow-md rounded-lg p-6">
@@ -522,8 +522,8 @@ export default function Home() {
                 no vas a estar solo en tu proyecto, siempre contarás con el
                 acompañamiento profesional.
               </p>
-              <p className="text-green-600 font-bold mt-4">Valor = ($250)</p>
-              <p className="text-red-600 font-bold">HOY = GRATIS</p>
+              <p className="text-gray-600 font-bold mt-4">Valor = ($250)</p>
+              <p className="text-green-600 font-bold">HOY = GRATIS</p>
             </div>
 
             <div className="bg-white shadow-md rounded-lg p-6">
