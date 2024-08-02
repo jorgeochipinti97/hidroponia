@@ -62,8 +62,8 @@ export default function Home() {
       <div className="h-[10vh] w-screen fixed bottom-0 bg-green-950/90 rounded-t-xl z-50">
         <div className="flex items-center h-full justify-around">
           <div className="flex flex-col">
-            <span className="text-white font-bold">+2535 alumnos</span>
-            <span className="text-white font-bold text-xs">
+            <span className="text-white ml-5 font-bold">+2535 alumnos</span>
+            <span className="text-white ml-5  font-bold text-xs">
               Único pago, Acceso inmediato y SIN mensualidades hasta el 5/8
             </span>
           </div>
