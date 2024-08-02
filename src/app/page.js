@@ -23,7 +23,6 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const trackEvent = useFacebookPixel();
   const [isFromArgentina, setIsFromArgentina] = useState(false);
-
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -35,7 +34,7 @@ export default function Home() {
           const data = await response.json();
           const country = data.address.country_code.toUpperCase();
           setIsFromArgentina(country === "AR");
-          console.log(country);
+
         },
         (error) => {
           console.error("Error fetching geolocation:", error);
@@ -47,6 +46,7 @@ export default function Home() {
       setIsFromArgentina(false); // Default fallback
     }
   }, []);
+
   const { push } = useRouter();
 
   const featured = [
