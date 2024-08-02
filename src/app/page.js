@@ -64,7 +64,7 @@ export default function Home() {
           <div className="flex flex-col">
             <span className="text-white font-bold">+2535 alumnos</span>
             <span className="text-white font-bold text-xs">
-              Oferta disponible hasta el 5/8
+              Único pago, Acceso inmediato y SIN mensualidades hasta el 5/8
             </span>
           </div>
           <Button onClick={handleClick}>
