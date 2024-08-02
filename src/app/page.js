@@ -97,6 +97,8 @@ export default function Home() {
               className="w-10/12 md:w-8/12 rounded-xl"
               controls
               playsInline
+              poster="/poster.jpg"
+
             />
           </div>
         </div>
