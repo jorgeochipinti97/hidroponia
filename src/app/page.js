@@ -162,7 +162,7 @@ export default function Home() {
                   {e.icon}
                   <span className="font-bold md:text-2xl">{e.title}</span>
                 </span>
-                <p className="mt-2 text-xs md:text-xl tracking-tighter md:w-10/12">
+                <p className="mt-2 text-xs md:text-xl mr-5 tracking-tighter md:w-10/12">
                   {e.description}
                 </p>
               </div>
