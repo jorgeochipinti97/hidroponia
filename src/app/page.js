@@ -301,7 +301,7 @@ export default function Home() {
             <Leaf className="mr-2" /> Comenzar ya
           </Button>
         </div>
-        <Accordion className="w-10/12 ml-5">
+        <Accordion className="w-10/12 ml-5 bg-white p-2 rounded-xl">
           <AccordionItem value="modulo1">
             <AccordionTrigger>Módulo 1: Bienvenida</AccordionTrigger>
             <AccordionContent>
@@ -679,7 +679,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-6 text-center">
             Preguntas Frecuentes
           </h2>
-          <Accordion>
+          <Accordion className="bg-white rounded-xl p-2">
             <AccordionItem value="faq1">
               <AccordionTrigger>
                 ¿Puedo hacer el curso si no sé nada de hidroponía?
