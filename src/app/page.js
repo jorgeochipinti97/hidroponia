@@ -624,8 +624,8 @@ export default function Home() {
         </div>
       </div>
 <div className='flex justify-center flex-col md:flex-row items-center'>
-<img src='testimonio.webp' className='w-10/12 rounded-xl my-5'/>
-<img src='testimonio1.webp' className='w-10/12 rounded-xl my-5'/>
+<img src='testimonio.webp' className='w-10/12 md:w-[30vw] md:mx-5 rounded-xl my-5'/>
+<img src='testimonio1.webp' className='w-10/12 md:w-[30vw] md:mx-5 rounded-xl my-5'/>
 </div>
 
       <div className="container mx-auto bg-green-200  px-4 py-8 mt-10 pb-28 rounded-b-[20px] rounded-t-[20px]">
