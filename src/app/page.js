@@ -67,7 +67,7 @@ export default function Home() {
               Único pago, Acceso inmediato y SIN mensualidades hasta el 5/8
             </span>
           </div>
-          <Button onClick={handleClick}>
+          <Button onClick={handleClick} className='mr-5'>
             <Leaf className="mr-2" /> Ser parte
           </Button>
         </div>
