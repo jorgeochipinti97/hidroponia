@@ -6,7 +6,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import useFacebookPixel from "@/hooks/usePixelFacebook";
+import { ToastAction } from "@radix-ui/react-toast";
 
 import {
   ChartSpline,
@@ -22,6 +24,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const trackEvent = useFacebookPixel();
+  const { toast } = useToast();
   // const [isFromArgentina, setIsFromArgentina] = useState(false);
   // useEffect(() => {
   //   if (navigator.geolocation) {
@@ -81,14 +84,78 @@ export default function Home() {
       icon: <PiggyBank className="mr-2" />,
     },
   ];
+  const data = [
+    "¡Última Hora! Juan de México se inscribió.",
+    "¡Increíble! María de Buenos Aires se unió.",
+    "¡Rápido! Solo quedan 5 plazas.",
+    "¡Atención! Plazas llenándose rápido.",
+    "¡Nuevo! Ana de Lima se inscribió.",
+    "¡Última Oportunidad! 2 plazas restantes.",
+    "¡Éxito! Carlos de Bogotá se unió.",
+    "¡Únete! Pedro de Santiago ya lo hizo.",
+    "¡Apúrate! 3 plazas disponibles.",
+    "¡Exclusivo! Laura de Madrid se inscribió.",
+    "¡Genial! Paula de Caracas se unió.",
+    "¡Felicidades! Luis de Quito se inscribió.",
+    "¡Vamos! Camila de Montevideo ya está dentro.",
+    "¡Increíble! Martín de Asunción se inscribió.",
+    "¡No te lo pierdas! 4 plazas restantes.",
+    "¡Sorpresa! Claudia de Lima se unió.",
+    "¡Anímate! Javier de Ciudad de México se inscribió.",
+    "¡Inscríbete! Lucía de Santiago ya lo hizo.",
+    "¡Date prisa! 1 plaza disponible.",
+    "¡Última Plaza! ¡Sé rápido!",
+    "¡Felicidades! Eduardo de Bogotá se unió.",
+    "¡Únete! Natalia de Buenos Aires ya está dentro.",
+    "¡Rápido! Solo quedan 3 plazas.",
+    "¡Atención! Plazas casi agotadas.",
+    "¡Nuevo! Alejandro de Lima se inscribió.",
+    "¡Última Oportunidad! 1 plaza restante.",
+    "¡Éxito! Sofia de Caracas se unió.",
+    "¡Únete! Felipe de Santiago ya lo hizo.",
+    "¡Apúrate! 2 plazas disponibles.",
+    "¡Exclusivo! Valentina de Madrid se inscribió.",
+    "¡Genial! Ignacio de Quito se unió.",
+    "¡Felicidades! Isabel de Montevideo se inscribió.",
+    "¡Vamos! Fernando de Asunción ya está dentro.",
+    "¡Increíble! Gabriela de Lima se inscribió.",
+    "¡No te lo pierdas! 2 plazas restantes.",
+    "¡Sorpresa! Rodrigo de Ciudad de México se unió.",
+    "¡Anímate! Victoria de Santiago se inscribió.",
+    "¡Inscríbete! Matías de Buenos Aires ya lo hizo.",
+    "¡Date prisa! 3 plazas disponibles.",
+    "¡Última Plaza! ¡Sé rápido!",
+    "¡Felicidades! Juan de Bogotá se unió.",
+    "¡Únete! Daniela de Lima ya está dentro.",
+    "¡Rápido! Solo quedan 1 plazas.",
+    "¡Atención! Plazas agotándose.",
+    "¡Nuevo! Francisco de Santiago se inscribió.",
+    "¡Última Oportunidad! 2 plazas restantes.",
+    "¡Éxito! Teresa de Madrid se unió.",
+    "¡Únete! Mario de Quito ya lo hizo.",
+  ];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * data.length);
+      toast({
+        title: `${data[randomIndex]}`,
+        description: "¡Rápido, no te quedes sin tu lugar!",
+        action: <Button onClick={handleClick} className="border-2" altText="Empezar ya"><Leaf className="mr-2"/>Empezar ya</Button>,
+
+      });
+    }, 6000); // Cambia el mensaje cada 10 segundos
+
+    return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+  }, []);
   const handleClick = () => {
     trackEvent("InitiateCheckout", { value: 29.99, currency: "USD" });
     // isFromArgentina
     //   ? push("https://mpago.la/2DrXPBZ")
-      // :
-       push("https://go.hotmart.com/Y94718196F?ap=9d29");
+    // :
+    push("https://go.hotmart.com/Y94718196F?ap=9d29");
   };
+
 
   return (
     <main className="bg-black">
