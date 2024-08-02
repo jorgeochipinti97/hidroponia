@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Accordion,
   AccordionContent,
@@ -531,13 +531,12 @@ export default function Home() {
           </div>
           <div className="bg-white shadow-md rounded-lg p-6">
             <p className="text-gray-700 mb-4">
-              "Soy Ingeniero Agroindustrial, graduado en la Universidad de Los
-              Llanos en Colombia, manejo cultivos hidropónicos NFT desde hace
-              más de 4 años, específicamente desde marzo del 2018. Actualmente,
-              trabajo en el Departamento del Meta en Colombia, brindando
-              asesorías en el área de hortalizas (pimentón, cilantro, tomate,
-              albahaca, orégano, entre otras) y alimentación animal con forraje
-              verde hidropónico."
+              Ingeniero Agroindustrial, graduado en la Universidad de Los Llanos
+              en Colombia, manejo cultivos hidropónicos NFT desde hace más de 4
+              años, específicamente desde marzo del 2018. Actualmente, trabajo
+              en el Departamento del Meta en Colombia, brindando asesorías en el
+              área de hortalizas (pimentón, cilantro, tomate, albahaca, orégano,
+              entre otras) y alimentación animal con forraje verde hidropónico.
             </p>
             <p className="text-gray-700">
               Este es mi día a día y ahora quiero compartir contigo todos mis
@@ -623,10 +622,16 @@ export default function Home() {
           </Button>
         </div>
       </div>
-<div className='flex justify-center flex-col md:flex-row items-center'>
-<img src='testimonio.webp' className='w-10/12 md:w-[30vw] md:mx-5 rounded-xl my-5'/>
-<img src='testimonio1.webp' className='w-10/12 md:w-[30vw] md:mx-5 rounded-xl my-5'/>
-</div>
+      <div className="flex justify-center flex-col md:flex-row items-center">
+        <img
+          src="testimonio.webp"
+          className="w-10/12 md:w-[30vw] md:mx-5 rounded-xl my-5"
+        />
+        <img
+          src="testimonio1.webp"
+          className="w-10/12 md:w-[30vw] md:mx-5 rounded-xl my-5"
+        />
+      </div>
 
       <div className="container mx-auto bg-green-200  px-4 py-8 mt-10 pb-28 rounded-b-[20px] rounded-t-[20px]">
         <section className="mb-8">
