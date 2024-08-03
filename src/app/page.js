@@ -17,6 +17,7 @@ import {
   ChartSpline,
   Droplet,
   Leaf,
+  LogIn,
   PiggyBank,
   SendHorizonal,
   Shovel,
@@ -526,12 +527,30 @@ export default function Home() {
         </div>
       </div>
       <p className=" text-white text-center text-4xl md:text-7xl tracking-tighter">
+¿Dónde accedo al curso?
+      </p>
+      <div className="flex justify-center my-10">
+        <Button
+        size='lg'
+          variant="outline"
+          className="text-black"
+          onClick={() =>
+            push(
+              "https://cursocompletodehidroponiatodol.club.hotmart.com/login?ref=Y94718196F"
+            )
+          }
+        >
+          <LogIn className="mr-2"/>
+Acceso al curso
+        </Button>
+      </div>
+      <p className=" text-white text-center text-4xl md:text-7xl tracking-tighter">
         ¡Oferta disponible hasta el 5/8!
       </p>
-
       <div className="flex justify-center mt-5">
         <img src="/oferta.jpeg" className="rounded-xl md:w-auto w-10/12" />
       </div>
+
       <div className="mt-10 rounded-t-[20px] rounded-b-[20px] bg-red-200">
         <div className="container mx-auto px-4 py-8">
           <h2 className="text-3xl font-bold mb-6 text-center">
