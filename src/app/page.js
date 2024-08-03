@@ -139,7 +139,7 @@ export default function Home() {
 
   const handleClick = () => {
     trackEvent("InitiateCheckout", { value: 29.99, currency: "USD" });
-    push("https://buy.stripe.com/8wM29jadD2MU14A3cc");
+    push("https://buy.stripe.com/14k9BLetT9biaFa145");
   };
 
   const [name, setName] = useState("");
