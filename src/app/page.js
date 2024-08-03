@@ -527,11 +527,11 @@ export default function Home() {
         </div>
       </div>
       <p className=" text-white text-center text-4xl md:text-7xl tracking-tighter">
-¿Dónde accedo al curso?
+        ¿Dónde accedo al curso?
       </p>
       <div className="flex justify-center my-10">
         <Button
-        size='lg'
+          size="lg"
           variant="outline"
           className="text-black"
           onClick={() =>
@@ -540,8 +540,8 @@ export default function Home() {
             )
           }
         >
-          <LogIn className="mr-2"/>
-Acceso al curso
+          <LogIn className="mr-2" />
+          Acceso al curso
         </Button>
       </div>
       <p className=" text-white text-center text-4xl md:text-7xl tracking-tighter">
@@ -820,7 +820,11 @@ Acceso al curso
           className="w-10/12 md:w-[30vw] md:mx-5 rounded-xl my-5"
         />
       </div>
-
+      <div className="flex flex-col items-center">
+        <p className="text-white font-bold text-3xl text-center tracking-tighter mt-5 md:text-7xl ">DESCUENTO ESPECIAL<br/> POR TIEMPO LIMITADO</p>
+        <img src="/flechas.webp" />
+        <Button className='mt-10' size='lg'><SendHorizonal className="mr-2 "/>Comienza YA</Button>
+      </div>
       <div className="container mx-auto bg-green-200  px-4 py-8 mt-10 pb-28 rounded-b-[20px] rounded-t-[20px]">
         <section className="mb-8">
           <h2 className="text-3xl font-bold mb-6 text-center">
