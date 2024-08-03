@@ -6,8 +6,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import useFacebookPixel from "@/hooks/usePixelFacebook";
+import supabase from "@/lib/SupabaseClient";
 import { ToastAction } from "@radix-ui/react-toast";
 
 import {
@@ -15,6 +18,7 @@ import {
   Droplet,
   Leaf,
   PiggyBank,
+  SendHorizonal,
   Shovel,
   Sprout,
 } from "lucide-react";
@@ -25,31 +29,6 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const trackEvent = useFacebookPixel();
   const { toast } = useToast();
-  // const [isFromArgentina, setIsFromArgentina] = useState(false);
-  // useEffect(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       async (position) => {
-  //         const { latitude, longitude } = position.coords;
-  //         const response = await fetch(
-  //           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-  //         );
-  //         const data = await response.json();
-  //         const country = data.address.country_code.toUpperCase();
-  //         setIsFromArgentina(country === "AR");
-
-  //       },
-  //       (error) => {
-  //         console.error("Error fetching geolocation:", error);
-  //         setIsFromArgentina(false); // Default fallback
-  //       }
-  //     );
-  //   } else {
-  //     console.error("Geolocation not supported");
-  //     setIsFromArgentina(false); // Default fallback
-  //   }
-  // }, []);
-
   const { push } = useRouter();
 
   const featured = [
@@ -141,24 +120,66 @@ export default function Home() {
       toast({
         title: `${data[randomIndex]}`,
         description: "¡Rápido, no te quedes sin tu lugar!",
-        action: <Button onClick={handleClick} className="border-2" altText="Empezar ya"><Leaf className="mr-2"/>Empezar ya</Button>,
-
+        action: (
+          <Button
+            onClick={handleClick}
+            className="border-2"
+            altText="Empezar ya"
+          >
+            <Leaf className="mr-2" />
+            Empezar ya
+          </Button>
+        ),
       });
     }, 6000); // Cambia el mensaje cada 10 segundos
 
     return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
   }, []);
+
   const handleClick = () => {
     trackEvent("InitiateCheckout", { value: 29.99, currency: "USD" });
-    // isFromArgentina
-    //   ? push("https://mpago.la/2DrXPBZ")
-    // :
     push("https://go.hotmart.com/Y94718196F?ap=9d29");
   };
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
 
+  const handleSubmit = async () => {
+    try {
+      setIsSubmit(true);
+
+      const { data, error } = await supabase
+      .from('clients')
+      .insert([
+        { name, email }
+      ])
+      .select();
+
+      if (error) {
+        console.error("Error inserting data:", error);
+        toast({
+          title: "Algo salio mal.",
+          variant: "destructive",
+        });
+      }
+      if (data) {
+        toast({
+          title: "Enviado con éxito!",
+          description: "Muchas gracias por confiar",
+        });
+        setName("");
+        setEmail("");
+      }
+    } catch (err) {
+      setIsSubmit(false);
+      console.log(err);
+    } finally {
+      setIsSubmit(false);
+    }
+  };
   return (
-    <main className="bg-black">
+    <main className="bg-green-950">
       <div className="h-[10vh] w-screen fixed bottom-0 bg-green-950/90 rounded-t-xl z-50">
         <div className="flex items-center h-full justify-around">
           <div className="flex flex-col">
@@ -368,140 +389,144 @@ export default function Home() {
             <Leaf className="mr-2" /> Comenzar ya
           </Button>
         </div>
-        <Accordion className="w-10/12 ml-5 bg-white p-2 rounded-xl">
-          <AccordionItem value="modulo1">
-            <AccordionTrigger>Módulo 1: Bienvenida</AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                <li>
-                  Clase 1: Aprenderás cuales son las temáticas a tratar en el
-                  curso
-                </li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
+        <div className="flex justify-center">
+          <Accordion className="w-10/12 ml-5 bg-white p-2 rounded-xl">
+            <AccordionItem value="modulo1">
+              <AccordionTrigger>Módulo 1: Bienvenida</AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  <li>
+                    Clase 1: Aprenderás cuales son las temáticas a tratar en el
+                    curso
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
 
-          <AccordionItem value="modulo2">
-            <AccordionTrigger>
-              Módulo 2: Introducción a la hidroponía
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                <li>Clase 2: Contexto e inicios de la hidroponía.</li>
-                <li>Clase 3: Ventajas y desventajas de la hidroponía.</li>
-                <li>
-                  Clase 4: ¿Qué se puede cultivar en hidroponía? Preparación de
-                  semilleros.
-                </li>
-                <li>
-                  Clase 5: Factores importantes en los cultivos hidropónicos y
-                  calibración de potenciómetro
-                </li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
+            <AccordionItem value="modulo2">
+              <AccordionTrigger>
+                Módulo 2: Introducción a la hidroponía
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  <li>Clase 2: Contexto e inicios de la hidroponía.</li>
+                  <li>Clase 3: Ventajas y desventajas de la hidroponía.</li>
+                  <li>
+                    Clase 4: ¿Qué se puede cultivar en hidroponía? Preparación
+                    de semilleros.
+                  </li>
+                  <li>
+                    Clase 5: Factores importantes en los cultivos hidropónicos y
+                    calibración de potenciómetro
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
 
-          <AccordionItem value="modulo3">
-            <AccordionTrigger>
-              Módulo 3: Elaboración de soluciones nutritivas
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                <li>Clase 6: Concepto de solución nutritiva</li>
-                <li>
-                  Clase 7: Materias primas a usar para la elaboración de SN.
-                </li>
-                <li>
-                  Clase 8: Manejo de la herramienta de Excel para el cálculo de
-                  SN.
-                </li>
-                <li>Clase 9: Ejemplo de elaboración de SN.</li>
-                <li>
-                  Clase 10: Ejemplo preparación de solución nutritiva comercial
-                </li>
-                <li>Clase 11: Formulación SN FAO, como elaborarla.</li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
+            <AccordionItem value="modulo3">
+              <AccordionTrigger>
+                Módulo 3: Elaboración de soluciones nutritivas
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  <li>Clase 6: Concepto de solución nutritiva</li>
+                  <li>
+                    Clase 7: Materias primas a usar para la elaboración de SN.
+                  </li>
+                  <li>
+                    Clase 8: Manejo de la herramienta de Excel para el cálculo
+                    de SN.
+                  </li>
+                  <li>Clase 9: Ejemplo de elaboración de SN.</li>
+                  <li>
+                    Clase 10: Ejemplo preparación de solución nutritiva
+                    comercial
+                  </li>
+                  <li>Clase 11: Formulación SN FAO, como elaborarla.</li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
 
-          <AccordionItem value="modulo4">
-            <AccordionTrigger>
-              Módulo 4: Manejo de plagas y enfermedades comunes
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                <li>Clase 12: Definiciones de plagas y enfermedades.</li>
-                <li>Clase 13: Daños ocasionados por plagas y enfermedades</li>
-                <li>
-                  Clase 14: Elaboración de biopreparados para el control de
-                  plagas y enfermedades
-                </li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
+            <AccordionItem value="modulo4">
+              <AccordionTrigger>
+                Módulo 4: Manejo de plagas y enfermedades comunes
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  <li>Clase 12: Definiciones de plagas y enfermedades.</li>
+                  <li>Clase 13: Daños ocasionados por plagas y enfermedades</li>
+                  <li>
+                    Clase 14: Elaboración de biopreparados para el control de
+                    plagas y enfermedades
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
 
-          <AccordionItem value="modulo5">
-            <AccordionTrigger>
-              Módulo 5: Técnicas hidropónicas ejemplos
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                <li>Clase 15: Construir sistema de Raíz flotante Ejemplo</li>
-                <li>Clase 16: Cama o mesa de cultivo en sustrato.</li>
-                <li>Clase 17: Sistema de sustrato en bolsa.</li>
-                <li>Clase 18: cilantro en diferentes sistemas</li>
-                <li>
-                  Clase 19: Seguimiento a cultivo de cilantro desde la siembra.
-                </li>
-                <li>Clase 20: Recorrido por policultivo hidropónico.</li>
-                <li>Clase 21: Cultivos de participante del curso ejemplo.</li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
+            <AccordionItem value="modulo5">
+              <AccordionTrigger>
+                Módulo 5: Técnicas hidropónicas ejemplos
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  <li>Clase 15: Construir sistema de Raíz flotante Ejemplo</li>
+                  <li>Clase 16: Cama o mesa de cultivo en sustrato.</li>
+                  <li>Clase 17: Sistema de sustrato en bolsa.</li>
+                  <li>Clase 18: cilantro en diferentes sistemas</li>
+                  <li>
+                    Clase 19: Seguimiento a cultivo de cilantro desde la
+                    siembra.
+                  </li>
+                  <li>Clase 20: Recorrido por policultivo hidropónico.</li>
+                  <li>Clase 21: Cultivos de participante del curso ejemplo.</li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
 
-          <AccordionItem value="modulo6">
-            <AccordionTrigger>
-              Módulo 6: Masterclass de hidroponía
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                <li>Lección 22: Conoce los Cultivos Hidropónicos</li>
-                <li>Lección 23: Video de los participantes del curso</li>
-                <li>Lección 24: Manual Práctico</li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
+            <AccordionItem value="modulo6">
+              <AccordionTrigger>
+                Módulo 6: Masterclass de hidroponía
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  <li>Lección 22: Conoce los Cultivos Hidropónicos</li>
+                  <li>Lección 23: Video de los participantes del curso</li>
+                  <li>Lección 24: Manual Práctico</li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
 
-          <AccordionItem value="modulo7">
-            <AccordionTrigger>
-              Módulo 7: Nuevo contenido (actualizado)
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                <li>Lección 25: Calibración, Potenciómetro y PHmetro</li>
-                <li>
-                  Lección 26: Preparación de una solución Comercial – Ejemplo
-                </li>
-                <li>Lección 27: Como hacer un sistema Vertical Aeropónico</li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
+            <AccordionItem value="modulo7">
+              <AccordionTrigger>
+                Módulo 7: Nuevo contenido (actualizado)
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  <li>Lección 25: Calibración, Potenciómetro y PHmetro</li>
+                  <li>
+                    Lección 26: Preparación de una solución Comercial – Ejemplo
+                  </li>
+                  <li>Lección 27: Como hacer un sistema Vertical Aeropónico</li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
 
-          <AccordionItem value="modulo8">
-            <AccordionTrigger>
-              Módulo 8: Forraje Verde Hidropónico
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul>
-                <li>
-                  Lección 28: Pasos para producir forraje de calidad & ejem
-                </li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+            <AccordionItem value="modulo8">
+              <AccordionTrigger>
+                Módulo 8: Forraje Verde Hidropónico
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul>
+                  <li>
+                    Lección 28: Pasos para producir forraje de calidad & ejem
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
       </div>
-      <p className=" text-white text-center text-4xl md:text-7xl">
+      <p className=" text-white text-center text-4xl md:text-7xl tracking-tighter">
         ¡Oferta disponible hasta el 5/8!
       </p>
 
@@ -632,7 +657,7 @@ export default function Home() {
             </div>
           </div>
           <div className="bg-white shadow-md rounded-lg p-6">
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 mb-4 tracking-tighter">
               Ingeniero Agroindustrial, graduado en la Universidad de Los Llanos
               en Colombia, manejo cultivos hidropónicos NFT desde hace más de 4
               años, específicamente desde marzo del 2018. Actualmente, trabajo
@@ -640,7 +665,7 @@ export default function Home() {
               área de hortalizas (pimentón, cilantro, tomate, albahaca, orégano,
               entre otras) y alimentación animal con forraje verde hidropónico.
             </p>
-            <p className="text-gray-700">
+            <p className="text-gray-700 tracking-tighter">
               Este es mi día a día y ahora quiero compartir contigo todos mis
               conocimientos y experiencia para que puedas tener tu Huerta
               Hidropónica con éxito.
@@ -650,11 +675,11 @@ export default function Home() {
 
         {/* Aprende la Técnica Agrícola del Futuro */}
         <section>
-          <h2 className="text-3xl font-bold mb-6 text-center">
+          <h2 className="text-3xl font-bold mb-6 text-center tracking-tighter">
             Aprende la Técnica Agrícola del Futuro
           </h2>
           <div className="bg-white shadow-md rounded-lg p-6">
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 mb-4 tracking-tighter">
               Entre las ventajas de esta técnica, están:
             </p>
             <ul className="list-disc list-inside text-gray-700 space-y-2">
@@ -702,9 +727,8 @@ export default function Home() {
         </div>
       </div>
 
-      <p>¿Tenés alguna consulta?</p>
       <div className="flex justify-center ">
-        <div>
+        <div className="mt-5">
           <Button
             size="lg"
             onClick={() => {
@@ -728,6 +752,37 @@ export default function Home() {
             </svg>
             Contactanos
           </Button>
+        </div>
+      </div>
+      <p className="mt-10 text-white tracking-tighter font-bold text-center text-3xl">
+        Suscribite a nuestro Newsletter y no te pierdas ninguna de nuestas
+        ofertas!
+      </p>
+      <div className="flex justify-center my-5">
+        <div className="flex flex-col text-white w-10/12 md:w-3/12">
+          <Label>Nombre</Label>
+          <Input
+            className="text-black my-1"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+          />
+          <div className="my-2" />
+          <Label>Email</Label>
+          <Input
+            className="text-black my-1"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <div className="mt-5">
+            <Button
+              variant="outline"
+              className="text-black"
+              onClick={() => handleSubmit()}
+              disabled={isSubmit}
+            >
+              <SendHorizonal className="mr-2" /> Enviar
+            </Button>
+          </div>
         </div>
       </div>
       <div className="flex justify-center flex-col md:flex-row items-center">
