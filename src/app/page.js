@@ -144,17 +144,16 @@ export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
+  const [country, setCountry] = useState(false);
 
   const handleSubmit = async () => {
     try {
       setIsSubmit(true);
 
       const { data, error } = await supabase
-      .from('clients')
-      .insert([
-        { name, email }
-      ])
-      .select();
+        .from("clients")
+        .insert([{ name, email, country }])
+        .select();
 
       if (error) {
         console.error("Error inserting data:", error);
@@ -772,6 +771,13 @@ export default function Home() {
             className="text-black my-1"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+          <div className="my-2" />
+          <Label>País</Label>
+          <Input
+            className="text-black my-1"
+            value={email}
+            onChange={(e) => setCountry(e.target.value)}
           />
           <div className="mt-5">
             <Button
