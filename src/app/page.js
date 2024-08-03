@@ -138,7 +138,7 @@ export default function Home() {
 
   const handleClick = () => {
     trackEvent("InitiateCheckout", { value: 29.99, currency: "USD" });
-    push("https://go.hotmart.com/Y94718196F?ap=9d29");
+    push("https://buy.stripe.com/8wM29jadD2MU14A3cc");
   };
 
   const [name, setName] = useState("");
