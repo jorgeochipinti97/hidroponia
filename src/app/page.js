@@ -826,7 +826,7 @@ export default function Home() {
           <br /> POR TIEMPO LIMITADO
         </p>
         <img src="/flechas.webp" />
-        <Button className="mt-10" size="lg">
+        <Button className="mt-10" size="lg" onClick={handleClick}>
           <SendHorizonal className="mr-2 " />
           Comienza YA
         </Button>
